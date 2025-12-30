@@ -1,0 +1,93 @@
+<section class="p-8 bg-[#0D1117] min-h-screen flex flex-col items-center">
+  <!-- Título centrado -->
+  <h2 class="text-3xl font-bold mb-8 text-while text-center">Realizar reparación </h2>
+
+  <!-- Card más ancho -->
+  <div
+    class="bg-gray-900/90 backdrop-blur-md rounded-lg shadow-lg border border-white/10 w-full max-w-7xl p-8 overflow-y-auto scrollbar-none max-h-[90vh]"
+  >
+    <form (ngSubmit)="guardarOrden()" class="space-y-6">
+      <!-- Datos del cliente -->
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Datos del Cliente</h3>
+        <div class="grid md:grid-cols-3 gap-4">
+          <input [(ngModel)]="orden.cliente.nombre" name="nombre" placeholder="Nombre" class="input" />
+          <input [(ngModel)]="orden.cliente.telefono" name="telefono" placeholder="Teléfono" class="input" />
+          <input [(ngModel)]="orden.cliente.direccion" name="direccion" placeholder="Dirección" class="input" />
+        </div>
+      </div>
+
+      <!-- Datos del dispositivo -->
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Datos del Dispositivo</h3>
+        <div class="grid md:grid-cols-3 gap-4">
+          <input [(ngModel)]="orden.dispositivo.tipo" name="tipo" placeholder="Tipo" class="input" />
+          <input [(ngModel)]="orden.dispositivo.marca" name="marca" placeholder="Marca" class="input" />
+          <input [(ngModel)]="orden.dispositivo.modelo" name="modelo" placeholder="Modelo" class="input" />
+          <input [(ngModel)]="orden.dispositivo.accesorios" name="accesorios" placeholder="Accesorios" class="input" />
+          <input [(ngModel)]="orden.dispositivo.condiciones" name="condiciones" placeholder="Condiciones físicas" class="input" />
+          <textarea [(ngModel)]="orden.dispositivo.descripcionAdicional" name="descripcionAdicional" placeholder="Descripción adicional" class="input md:col-span-3"></textarea>
+        </div>
+      </div>
+
+      <!-- Información de la orden -->
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Información de la Orden</h3>
+        <div class="grid md:grid-cols-3 gap-4">
+          <input [(ngModel)]="orden.informacion.falla" name="falla" placeholder="Falla reportada" class="input" />
+          <textarea [(ngModel)]="orden.informacion.diagnostico" name="diagnostico" placeholder="Diagnóstico inicial" class="input md:col-span-2"></textarea>
+          <select [(ngModel)]="orden.informacion.estado" name="estado" class="input">
+            <option value="">Estado</option>
+            <option>Recibido</option>
+            <option>En proceso</option>
+            <option>Finalizado</option>
+          </select>
+          <select [(ngModel)]="orden.informacion.prioridad" name="prioridad" class="input">
+            <option value="">Prioridad</option>
+            <option>Alta</option>
+            <option>Media</option>
+            <option>Baja</option>
+          </select>
+          <input type="date" [(ngModel)]="orden.informacion.fechaIngreso" name="fechaIngreso" class="input" />
+          <input type="date" [(ngModel)]="orden.informacion.fechaEntrega" name="fechaEntrega" class="input" />
+          <input type="date" [(ngModel)]="orden.informacion.fechaFinalizacion" name="fechaFinalizacion" class="input" />
+        </div>
+      </div>
+
+      <!-- Costos y logística -->
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Costos y Logística</h3>
+        <div class="grid md:grid-cols-3 gap-4">
+          <input [(ngModel)]="orden.costos.presupuesto" name="presupuesto" placeholder="Presupuesto estimado" class="input" />
+          <input [(ngModel)]="orden.costos.costoFinal" name="costoFinal" placeholder="Costo final" class="input" />
+          <select [(ngModel)]="orden.costos.formaPago" name="formaPago" class="input">
+            <option value="">Forma de pago</option>
+            <option>Bolívares</option>
+            <option>Dólares</option>
+            <option>Otro</option>
+          </select>
+          <label class="flex items-center space-x-2 md:col-span-3">
+            <input type="checkbox" [(ngModel)]="orden.costos.autorizacion" name="autorizacion" />
+            <span>Autorización del cliente</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Seguimiento y acciones -->
+      <div>
+        <h3 class="text-lg font-semibold mb-3">Seguimiento y Acciones</h3>
+        <div class="grid md:grid-cols-3 gap-4">
+          <textarea [(ngModel)]="orden.seguimiento.notasInternas" name="notasInternas" placeholder="Notas internas" class="input md:col-span-2"></textarea>
+          <textarea [(ngModel)]="orden.seguimiento.historial" name="historial" placeholder="Historial de cambios" class="input md:col-span-3"></textarea>
+        </div>
+      </div>
+
+      <!-- Botón -->
+      <div class="text-right">
+        <button type="submit" class="px-6 py-2 bg-blue-500 text-white rounded-md shadow hover:shadow-lg transition">
+          Guardar Orden
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

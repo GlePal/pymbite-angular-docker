@@ -1,0 +1,47 @@
+<div class="flex min-h-screen bg-[#0D1117] text-white font-inter">
+  <!-- Sidebar -->
+  <app-sidebar
+    (mouseenter)="openSidebar()"
+    (mouseleave)="closeSidebar()"
+  ></app-sidebar>
+
+  <!-- Contenido principal -->
+  <main
+    [class.pl-64]="isSidebarOpen()"
+    [class.pl-16]="!isSidebarOpen()"
+    class="relative z-0 flex-1 overflow-y-auto transition-all duration-300 ease-in-out"
+  >
+    <!-- Inicio -->
+    <section id="inicio" class="min-h-screen">
+      <app-inicio></app-inicio>
+    </section>
+
+    <!-- Panel de control -->
+    <section id="panel-control" class="min-h-screen">
+      <app-panel-control></app-panel-control>
+    </section>
+
+    <!-- Órdenes -->
+    <section id="ordenes" class="min-h-screen">
+      <app-ordenes></app-ordenes>
+    </section>
+
+    <!-- Equipos -->
+    <section id="equipos" class="min-h-screen">
+      <app-equipos></app-equipos>
+    </section>
+
+    <!-- Gestión de Reparaciones -->
+    <section id="gestion-reparaciones" class="min-h-screen">
+      <app-gestion-reparaciones></app-gestion-reparaciones>
+    </section>
+
+    <!-- Inventario -->
+    <section id="inventario" class="min-h-screen">
+      <app-inventario></app-inventario>
+    </section>
+
+    <!-- Footer -->
+    <app-footer></app-footer>
+  </main>
+</div>

@@ -1,0 +1,134 @@
+<section class="p-8 bg-[#0D1117] min-h-screen flex flex-col items-center">
+  <!-- Título simple y elegante -->
+  <h2 class="text-3xl font-bold mb-8 text-white text-center">
+    Órdenes registradas
+  </h2>
+
+  <!-- Card ancho -->
+  <div class="bg-gray-900/90 rounded-lg shadow-lg border border-white/10 p-6 w-full max-w-[95%] mx-auto">
+    <!-- Filtros alineados a la izquierda -->
+    <div class="flex flex-wrap gap-4 mb-6 text-white">
+      <div>
+        <label class="block mb-1 text-sm">Estado:</label>
+        <select [(ngModel)]="estadoFiltro" class="bg-gray-800 text-white px-3 py-2 rounded">
+          <option value="">Todos</option>
+          <option value="Recibido">Recibido</option>
+          <option value="En proceso">En proceso</option>
+          <option value="Finalizado">Finalizado</option>
+        </select>
+      </div>
+      <div>
+        <label class="block mb-1 text-sm">Prioridad:</label>
+        <select [(ngModel)]="prioridadFiltro" class="bg-gray-800 text-white px-3 py-2 rounded">
+          <option value="">Todas</option>
+          <option value="Alta">Alta</option>
+          <option value="Media">Media</option>
+          <option value="Baja">Baja</option>
+        </select>
+      </div>
+      <!-- Input cliente con ancho fijo -->
+      <div class="w-64">
+        <label class="block mb-1 text-sm">Cliente:</label>
+        <input
+          [(ngModel)]="clienteFiltro"
+          placeholder="Buscar cliente..."
+          class="bg-gray-800 text-white px-3 py-2 rounded w-full"
+        />
+      </div>
+    </div>
+
+    <!-- Tabla -->
+    <div class="overflow-x-auto">
+      <table class="min-w-[1400px] w-full text-sm text-white text-center">
+        <thead class="bg-gray-800 text-blue-400">
+          <tr>
+            <th class="px-4 py-2">Cliente</th>
+            <th class="px-4 py-2">Teléfono</th>
+            <th class="px-4 py-2">Dirección</th>
+            <th class="px-4 py-2">Tipo</th>
+            <th class="px-4 py-2">Marca</th>
+            <th class="px-4 py-2">Modelo</th>
+            <th class="px-4 py-2">Accesorios</th>
+            <th class="px-4 py-2">Condiciones</th>
+            <th class="px-4 py-2">Descripción</th>
+            <th class="px-4 py-2">Falla</th>
+            <th class="px-4 py-2">Diagnóstico</th>
+            <th class="px-4 py-2">Estado</th>
+            <th class="px-4 py-2">Prioridad</th>
+            <th class="px-4 py-2">Ingreso</th>
+            <th class="px-4 py-2">Entrega</th>
+            <th class="px-4 py-2">Finalización</th>
+            <th class="px-4 py-2">Presupuesto</th>
+            <th class="px-4 py-2">Costo</th>
+            <th class="px-4 py-2">Pago</th>
+            <th class="px-4 py-2">Autorización</th>
+            <th class="px-4 py-2">Notas</th>
+            <th class="px-4 py-2">Historial</th>
+            <th class="px-4 py-2">Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody class="divide-y divide-white/10">
+          <tr *ngFor="let orden of ordenesFiltradas; let i = index">
+            <td class="px-4 py-2">{{ orden.cliente.nombre }}</td>
+            <td class="px-4 py-2">{{ orden.cliente.telefono }}</td>
+            <td class="px-4 py-2">{{ orden.cliente.direccion }}</td>
+            <td class="px-4 py-2">{{ orden.dispositivo.tipo }}</td>
+            <td class="px-4 py-2">{{ orden.dispositivo.marca }}</td>
+            <td class="px-4 py-2">{{ orden.dispositivo.modelo }}</td>
+            <td class="px-4 py-2">{{ orden.dispositivo.accesorios }}</td>
+            <td class="px-4 py-2">{{ orden.dispositivo.condiciones }}</td>
+            <td class="px-4 py-2">{{ orden.dispositivo.descripcionAdicional }}</td>
+            <td class="px-4 py-2">{{ orden.informacion.falla }}</td>
+            <td class="px-4 py-2">{{ orden.informacion.diagnostico }}</td>
+
+            <!-- Estado badge -->
+            <td class="px-4 py-2">
+              <span [ngClass]="{
+                'badge badge-estado-recibido': orden.informacion.estado === 'Recibido',
+                'badge badge-estado-proceso': orden.informacion.estado === 'En proceso',
+                'badge badge-estado-finalizado': orden.informacion.estado === 'Finalizado'
+              }">
+                {{ orden.informacion.estado }}
+              </span>
+            </td>
+
+            <!-- Prioridad badge -->
+            <td class="px-4 py-2">
+              <span [ngClass]="{
+                'badge badge-prioridad-alta': orden.informacion.prioridad === 'Alta',
+                'badge badge-prioridad-media': orden.informacion.prioridad === 'Media',
+                'badge badge-prioridad-baja': orden.informacion.prioridad === 'Baja'
+              }">
+                {{ orden.informacion.prioridad }}
+              </span>
+            </td>
+
+            <td class="px-4 py-2">{{ orden.informacion.fechaIngreso }}</td>
+            <td class="px-4 py-2">{{ orden.informacion.fechaEntrega }}</td>
+            <td class="px-4 py-2">{{ orden.informacion.fechaFinalizacion }}</td>
+            <td class="px-4 py-2">{{ orden.costos.presupuesto }}</td>
+            <td class="px-4 py-2">{{ orden.costos.costoFinal | currency:'USD' }}</td>
+            <td class="px-4 py-2">{{ orden.costos.formaPago }}</td>
+            <td class="px-4 py-2">{{ orden.costos.autorizacion ? 'Sí' : 'No' }}</td>
+            <td class="px-4 py-2">{{ orden.seguimiento.notasInternas }}</td>
+            <td class="px-4 py-2">{{ orden.seguimiento.historial }}</td>
+
+            <!-- Acciones con iconos -->
+            <td class="px-4 py-2 space-x-3 flex justify-center">
+              <button (click)="editarOrden(i)" title="Editar" class="text-blue-400 hover:text-blue-300">
+                <i class="fas fa-pen-to-square"></i>
+              </button>
+              <button (click)="eliminarOrden(i)" title="Eliminar" class="text-red-500 hover:text-red-400">
+                <i class="fas fa-trash-can"></i>
+              </button>
+              <button (click)="imprimirOrden(i)" title="Imprimir" class="text-white hover:text-gray-300">
+                <i class="fas fa-print"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

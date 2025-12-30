@@ -1,0 +1,42 @@
+:host {
+  display: block;
+}
+section {
+  background-color: #0d1117; /* fondo oscuro */
+  overflow: hidden;
+}
+
+svg {
+  filter: drop-shadow(0 0 6px #00f0ff); /* efecto glow */
+}
+
+/* Animación de movimiento de las líneas */
+@keyframes moverLineas {
+  0% { background-position: 0 0; }
+  100% { background-position: 200px 200px; }
+}
+
+/* Animación de parpadeo de los nodos */
+@keyframes parpadeoNodos {
+  0% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* Contenido encima del fondo */
+section > * {
+  position: relative;
+  z-index: 1;
+}
+
+.input {
+  @apply w-full px-3 py-2 rounded-md bg-gray-800 text-white border border-white/10 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm;
+}
+
+/* Oculta la barra blanca de scroll */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

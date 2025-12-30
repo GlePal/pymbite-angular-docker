@@ -1,0 +1,8 @@
+:host {
+  display: block;
+}
+
+/* Fondo sólido oscuro sin grid */
+aside {
+  background-color: #111827; /* gris oscuro profesional */
+}
