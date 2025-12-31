@@ -1,35 +1,42 @@
+<!-- Sección principal -->
 <section class="p-8 bg-[#0D1117] min-h-screen flex flex-col items-center">
-  <!-- Título simple y elegante -->
-  <h2 class="text-3xl font-bold mb-8 text-white text-center">
+  <!-- Título -->
+  <h2 id="titulo" class="titulo text-3xl font-bold mb-8 text-white text-center">
     Órdenes registradas
   </h2>
 
-  <!-- Card ancho -->
+  <!-- Card contenedor -->
   <div class="bg-gray-900/90 rounded-lg shadow-lg border border-white/10 p-6 w-full max-w-[95%] mx-auto">
-    <!-- Filtros alineados a la izquierda -->
+    
+    <!-- Filtros -->
     <div class="flex flex-wrap gap-4 mb-6 text-white">
+      <!-- Estado -->
       <div>
-        <label class="block mb-1 text-sm">Estado:</label>
-        <select [(ngModel)]="estadoFiltro" class="bg-gray-800 text-white px-3 py-2 rounded">
+        <label for="estadoFiltro" class="block mb-1 text-sm">Estado:</label>
+        <select id="estadoFiltro" [(ngModel)]="estadoFiltro" class="bg-gray-800 text-white px-3 py-2 rounded">
           <option value="">Todos</option>
           <option value="Recibido">Recibido</option>
           <option value="En proceso">En proceso</option>
           <option value="Finalizado">Finalizado</option>
         </select>
       </div>
+
+      <!-- Prioridad -->
       <div>
-        <label class="block mb-1 text-sm">Prioridad:</label>
-        <select [(ngModel)]="prioridadFiltro" class="bg-gray-800 text-white px-3 py-2 rounded">
+        <label for="prioridadFiltro" class="block mb-1 text-sm">Prioridad:</label>
+        <select id="prioridadFiltro" [(ngModel)]="prioridadFiltro" class="bg-gray-800 text-white px-3 py-2 rounded">
           <option value="">Todas</option>
           <option value="Alta">Alta</option>
           <option value="Media">Media</option>
           <option value="Baja">Baja</option>
         </select>
       </div>
-      <!-- Input cliente con ancho fijo -->
+
+      <!-- Cliente -->
       <div class="w-64">
-        <label class="block mb-1 text-sm">Cliente:</label>
+        <label for="clienteFiltro" class="block mb-1 text-sm">Cliente:</label>
         <input
+          id="clienteFiltro"
           [(ngModel)]="clienteFiltro"
           placeholder="Buscar cliente..."
           class="bg-gray-800 text-white px-3 py-2 rounded w-full"
@@ -69,64 +76,73 @@
         </thead>
 
         <tbody class="divide-y divide-white/10">
-          <tr *ngFor="let orden of ordenesFiltradas; let i = index">
-            <td class="px-4 py-2">{{ orden.cliente.nombre }}</td>
-            <td class="px-4 py-2">{{ orden.cliente.telefono }}</td>
-            <td class="px-4 py-2">{{ orden.cliente.direccion }}</td>
-            <td class="px-4 py-2">{{ orden.dispositivo.tipo }}</td>
-            <td class="px-4 py-2">{{ orden.dispositivo.marca }}</td>
-            <td class="px-4 py-2">{{ orden.dispositivo.modelo }}</td>
-            <td class="px-4 py-2">{{ orden.dispositivo.accesorios }}</td>
-            <td class="px-4 py-2">{{ orden.dispositivo.condiciones }}</td>
-            <td class="px-4 py-2">{{ orden.dispositivo.descripcionAdicional }}</td>
-            <td class="px-4 py-2">{{ orden.informacion.falla }}</td>
-            <td class="px-4 py-2">{{ orden.informacion.diagnostico }}</td>
+          <!-- ✅ Angular 20: nueva sintaxis de control flow -->
+          @for (orden of ordenesFiltradas; track $index) {
+            <tr>
+              <td class="px-4 py-2">{{ orden.cliente.nombre }}</td>
+              <td class="px-4 py-2">{{ orden.cliente.telefono }}</td>
+              <td class="px-4 py-2">{{ orden.cliente.direccion }}</td>
 
-            <!-- Estado badge -->
-            <td class="px-4 py-2">
-              <span [ngClass]="{
-                'badge badge-estado-recibido': orden.informacion.estado === 'Recibido',
-                'badge badge-estado-proceso': orden.informacion.estado === 'En proceso',
-                'badge badge-estado-finalizado': orden.informacion.estado === 'Finalizado'
-              }">
-                {{ orden.informacion.estado }}
-              </span>
-            </td>
+              <td class="px-4 py-2">{{ orden.dispositivo.tipo }}</td>
+              <td class="px-4 py-2">{{ orden.dispositivo.marca }}</td>
+              <td class="px-4 py-2">{{ orden.dispositivo.modelo }}</td>
+              <td class="px-4 py-2">{{ orden.dispositivo.accesorios }}</td>
+              <td class="px-4 py-2">{{ orden.dispositivo.condiciones }}</td>
+              <td class="px-4 py-2">{{ orden.dispositivo.descripcionAdicional }}</td>
 
-            <!-- Prioridad badge -->
-            <td class="px-4 py-2">
-              <span [ngClass]="{
-                'badge badge-prioridad-alta': orden.informacion.prioridad === 'Alta',
-                'badge badge-prioridad-media': orden.informacion.prioridad === 'Media',
-                'badge badge-prioridad-baja': orden.informacion.prioridad === 'Baja'
-              }">
-                {{ orden.informacion.prioridad }}
-              </span>
-            </td>
+              <td class="px-4 py-2">{{ orden.informacion.falla }}</td>
+              <td class="px-4 py-2">{{ orden.informacion.diagnostico }}</td>
 
-            <td class="px-4 py-2">{{ orden.informacion.fechaIngreso }}</td>
-            <td class="px-4 py-2">{{ orden.informacion.fechaEntrega }}</td>
-            <td class="px-4 py-2">{{ orden.informacion.fechaFinalizacion }}</td>
-            <td class="px-4 py-2">{{ orden.costos.presupuesto }}</td>
-            <td class="px-4 py-2">{{ orden.costos.costoFinal | currency:'USD' }}</td>
-            <td class="px-4 py-2">{{ orden.costos.formaPago }}</td>
-            <td class="px-4 py-2">{{ orden.costos.autorizacion ? 'Sí' : 'No' }}</td>
-            <td class="px-4 py-2">{{ orden.seguimiento.notasInternas }}</td>
-            <td class="px-4 py-2">{{ orden.seguimiento.historial }}</td>
+              <!-- Estado con badge -->
+              <td class="px-4 py-2">
+                <span class="badge"
+                  [ngClass]="{
+                    'badge-estado-recibido': orden.informacion.estado === 'Recibido',
+                    'badge-estado-proceso': orden.informacion.estado === 'En proceso',
+                    'badge-estado-finalizado': orden.informacion.estado === 'Finalizado'
+                  }">
+                  {{ orden.informacion.estado }}
+                </span>
+              </td>
 
-            <!-- Acciones con iconos -->
-            <td class="px-4 py-2 space-x-3 flex justify-center">
-              <button (click)="editarOrden(i)" title="Editar" class="text-blue-400 hover:text-blue-300">
-                <i class="fas fa-pen-to-square"></i>
-              </button>
-              <button (click)="eliminarOrden(i)" title="Eliminar" class="text-red-500 hover:text-red-400">
-                <i class="fas fa-trash-can"></i>
-              </button>
-              <button (click)="imprimirOrden(i)" title="Imprimir" class="text-white hover:text-gray-300">
-                <i class="fas fa-print"></i>
-              </button>
-            </td>
-          </tr>
+              <!-- Prioridad con badge -->
+              <td class="px-4 py-2">
+                <span class="badge"
+                  [ngClass]="{
+                    'badge-prioridad-alta': orden.informacion.prioridad === 'Alta',
+                    'badge-prioridad-media': orden.informacion.prioridad === 'Media',
+                    'badge-prioridad-baja': orden.informacion.prioridad === 'Baja'
+                  }">
+                  {{ orden.informacion.prioridad }}
+                </span>
+              </td>
+
+              <td class="px-4 py-2">{{ orden.informacion.fechaIngreso }}</td>
+              <td class="px-4 py-2">{{ orden.informacion.fechaEntrega }}</td>
+              <td class="px-4 py-2">{{ orden.informacion.fechaFinalizacion }}</td>
+
+              <td class="px-4 py-2">{{ orden.costos.presupuesto }}</td>
+              <td class="px-4 py-2">{{ orden.costos.costoFinal | currency:'USD' }}</td>
+              <td class="px-4 py-2">{{ orden.costos.formaPago }}</td>
+              <td class="px-4 py-2">{{ orden.costos.autorizacion ? 'Sí' : 'No' }}</td>
+
+              <td class="px-4 py-2">{{ orden.seguimiento.notasInternas }}</td>
+              <td class="px-4 py-2">{{ orden.seguimiento.historial }}</td>
+
+              <!-- Acciones -->
+              <td class="px-4 py-2 space-x-3 flex justify-center">
+                <button (click)="editarOrden($index)" title="Editar" class="text-blue-400 hover:text-blue-300">
+                  <span class="icono" aria-hidden="true">✏️</span>
+                </button>
+                <button (click)="eliminarOrden($index)" title="Eliminar" class="text-red-500 hover:text-red-400">
+                  <span class="icono" aria-hidden="true">🗑️</span>
+                </button>
+                <button (click)="imprimirOrden($index)" title="Imprimir" class="text-white hover:text-gray-300">
+                  <span class="icono" aria-hidden="true">🖨️</span>
+                </button>
+              </td>
+            </tr>
+          }
         </tbody>
       </table>
     </div>

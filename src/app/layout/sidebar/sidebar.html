@@ -1,24 +1,10 @@
-<!-- Sidebar colapsable:
-     - z-50 para quedar siempre encima del contenido.
-     - overflow-hidden para evitar que el texto se salga al estar colapsado.
-     - hover:w-64 para expandirse cuando el usuario está encima del sidebar.
--->
 <aside
   class="group fixed top-0 left-0 z-50 h-screen w-16 hover:w-64 transition-all duration-300 ease-in-out bg-gray-900/90 backdrop-blur-md border-r border-white/10 shadow-[0_0_10px_rgba(59,130,246,0.25)] overflow-hidden"
   aria-label="Barra lateral de navegación"
 >
-  <!-- Encabezado con logo + nombre:
-       - overflow-hidden en el contenedor para que el nombre no se salga cuando esté colapsado.
-       - El nombre se revela con group-hover, usando transición de opacidad y ancho.
-  -->
+  <!-- Encabezado -->
   <div class="flex items-center justify-center group-hover:justify-start px-4 py-6 overflow-hidden">
-    <!-- Logo circular animado -->
     <div class="w-10 h-10 rounded-full bg-blue-500/10 ring-2 ring-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.55)] animate-pulse"></div>
-    <!-- Nombre de la empresa:
-         - hidden no es transicionable; usamos width/opacity para animación suave.
-         - max-w-0 + opacity-0 colapsado; group-hover:max-w-[10rem] + opacity-100 expandido.
-         - whitespace-nowrap evita cortes; overflow-hidden evita desbordes.
-    -->
     <span
       class="ml-3 text-lg font-semibold text-white opacity-0 max-w-0 overflow-hidden whitespace-nowrap transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:max-w-[10rem]"
     >
@@ -26,34 +12,26 @@
     </span>
   </div>
 
-  <!-- Línea divisoria -->
   <div class="border-t border-white/10 mx-4 mb-4"></div>
 
-  <!-- Menú de navegación:
-       - items-start cuando expandido para alinear a la izquierda.
-       - Cada botón ocupa toda la anchura para que el hover cubra el sidebar completo.
-       - El texto del ítem usa la misma técnica de width/opacity para no salirse al colapsar.
-  -->
+  <!-- Menú -->
   <nav>
     <ul class="flex flex-col items-center group-hover:items-start space-y-1 px-2">
-      @for (s of sections; track s.anchor) {
+      @for (item of routeItems; track item.path) {
         <li class="w-full">
-          <button
-            (click)="scrollTo(s.anchor)"
-            class="flex items-center w-full text-left text-white/80 hover:text-blue-400 transition-all duration-200 px-3 py-3 rounded-md hover:bg-white/5 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            [attr.aria-label]="s.aria"
+          <a
+            [routerLink]="item.path"
+            routerLinkActive="text-blue-400"
+            class="flex items-center w-full text-left text-white/80 hover:text-blue-400 transition-all duration-200 px-3 py-3 rounded-md hover:bg-white/5"
+            [attr.aria-label]="item.aria"
           >
-            <!-- Ícono siempre visible -->
-            <span class="text-xl drop-shadow-[0_0_6px_#3B82F6]">{{ s.icon }}</span>
-            <!-- Texto del ítem:
-                 - Misma técnica de max-w y opacity para evitar desbordes al estar colapsado.
-            -->
+            <span class="text-xl drop-shadow-[0_0_6px_#3B82F6]">{{ item.icon }}</span>
             <span
               class="ml-3 opacity-0 max-w-0 overflow-hidden whitespace-nowrap transition-all duration-300 ease-in-out group-hover:opacity-100 group-hover:max-w-[14rem]"
             >
-              {{ s.label }}
+              {{ item.label }}
             </span>
-          </button>
+          </a>
         </li>
       }
     </ul>
