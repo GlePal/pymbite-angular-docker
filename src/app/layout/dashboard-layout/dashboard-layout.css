@@ -1,0 +1,22 @@
+/* Scrollspy activo */
+app-sidebar a.active-link {
+  color: #3B82F6;
+  font-weight: 600;
+  border-left: 3px solid #3B82F6;
+  background: linear-gradient(90deg, rgba(59,130,246,0.25), transparent);
+  box-shadow: inset 0 0 12px rgba(59,130,246,0.4);
+  transition: all 0.3s ease;
+}
+
+/* Animación de entrada para secciones */
+section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+

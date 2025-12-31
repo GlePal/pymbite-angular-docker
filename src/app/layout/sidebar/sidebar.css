@@ -2,7 +2,55 @@
   display: block;
 }
 
-/* Fondo sólido oscuro sin grid */
+/* === Sidebar con glassmorphism === */
 aside {
-  background-color: #111827; /* gris oscuro profesional */
+  background: rgba(17, 24, 39, 0.7); /* translúcido */
+  backdrop-filter: blur(12px);       /* efecto vidrio */
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.25); /* glow azul */
+  transition: all 0.3s ease;
+}
+
+/* === Links generales === */
+aside a {
+  color: #f9fafb;
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+/* Hover futurista */
+aside a:hover {
+  color: #3B82F6;
+  background: linear-gradient(90deg, rgba(59,130,246,0.15), transparent);
+  text-shadow: 0 0 8px #3B82F6;
+  transform: translateX(4px);
+}
+
+/* === Enlace activo (scrollspy) === */
+.active-link {
+  color: #3B82F6;
+  font-weight: 600;
+  background: linear-gradient(90deg, rgba(59,130,246,0.25), transparent);
+  border-left: 3px solid #3B82F6;
+  box-shadow: inset 0 0 12px rgba(59,130,246,0.4);
+  transition: all 0.3s ease;
+}
+
+/* === Animación de entrada del sidebar === */
+aside {
+  animation: fadeInSidebar 0.8s ease forwards;
+}
+
+@keyframes fadeInSidebar {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
