@@ -28,10 +28,19 @@ export class DashboardLayout implements AfterViewInit {
   private route = inject(ActivatedRoute);
 
   ngAfterViewInit(): void {
-    const frag = this.route.snapshot.fragment;
-    if (frag) {
-      const el = document.getElementById(frag);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    // ✅ Escuchar cambios de fragmento
+    this.route.fragment.subscribe(frag => {
+      if (frag) {
+        const el = document.getElementById(frag);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      } else {
+        const inicio = document.getElementById('inicio');
+        if (inicio) {
+          inicio.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    });
   }
 }

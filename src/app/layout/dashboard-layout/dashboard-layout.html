@@ -1,32 +1,31 @@
-<div class="flex min-h-screen bg-[#0D1117] text-white font-inter">
-  <!-- Sidebar en modo dashboard -->
+<div class="flex flex-col min-h-screen bg-[#0D1117] text-white font-inter">
+  <!-- Sidebar con Input -->
   <app-sidebar [mode]="'dashboard'"></app-sidebar>
 
-  <!-- Contenido apilado con scroll -->
-  <main class="flex-1 overflow-y-auto">
-    <section id="inicio" class="min-h-screen">
+  <!-- Contenido principal -->
+  <main class="flex-1 overflow-y-auto scroll-smooth">
+    <section id="inicio" class="min-h-screen p-10">
       <app-inicio></app-inicio>
     </section>
 
-    <section id="panel-control" class="min-h-screen">
+    <section id="panel-control" class="min-h-screen p-10">
       <app-panel-control></app-panel-control>
     </section>
 
-    <section id="ordenes" class="min-h-screen">
+    <section id="ordenes" class="min-h-screen p-10">
       <app-ordenes></app-ordenes>
     </section>
 
-    <section id="equipos" class="min-h-screen">
+    <section id="equipos" class="min-h-screen p-10">
       <app-equipos></app-equipos>
     </section>
 
-    <section id="gestion-reparaciones" class="min-h-screen">
+    <section id="gestion-reparaciones" class="min-h-screen p-10">
       <app-gestion-reparaciones></app-gestion-reparaciones>
     </section>
 
-    <section id="inventario" class="min-h-screen">
+    <section id="inventario" class="min-h-screen p-10">
       <app-inventario></app-inventario>
     </section>
-
   </main>
 </div>

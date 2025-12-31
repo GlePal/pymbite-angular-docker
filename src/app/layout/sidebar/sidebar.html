@@ -17,10 +17,11 @@
   <!-- Menú -->
   <nav>
     <ul class="flex flex-col items-center group-hover:items-start space-y-1 px-2">
-      @for (item of routeItems; track item.path) {
+      @for (item of routeItems; track item.fragment) {
         <li class="w-full">
           <a
             [routerLink]="item.path"
+            [fragment]="item.fragment"
             routerLinkActive="text-blue-400"
             class="flex items-center w-full text-left text-white/80 hover:text-blue-400 transition-all duration-200 px-3 py-3 rounded-md hover:bg-white/5"
             [attr.aria-label]="item.aria"
