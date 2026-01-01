@@ -1,22 +1,94 @@
-/* Scrollspy activo */
-app-sidebar a.active-link {
-  color: #3B82F6;
-  font-weight: 600;
-  border-left: 3px solid #3B82F6;
-  background: linear-gradient(90deg, rgba(59,130,246,0.25), transparent);
-  box-shadow: inset 0 0 12px rgba(59,130,246,0.4);
-  transition: all 0.3s ease;
+:root {
+  --bg-dark: #0D1117;
+  --glass-bg: rgba(17, 24, 39, 0.6); /* efecto vidrio */
+  --primary-neon: #3B82F6; /* azul eléctrico */
+  --accent-purple: #A855F7; /* púrpura neón */
+  --accent-green: #10B981; /* verde digital */
+  --text-light: #F9FAFB;
 }
 
-/* Animación de entrada para secciones */
+/* === Layout general === */
+body {
+  background: var(--bg-dark);
+  font-family: 'Inter', 'Space Grotesk', sans-serif;
+  color: var(--text-light);
+  scroll-behavior: smooth;
+}
+
+/* === Contenedor principal === */
+main {
+  background: linear-gradient(180deg, rgba(17,24,39,0.9), rgba(17,24,39,1));
+  padding: 2rem;
+}
+
+/* === Secciones con animación futurista === */
 section {
+  min-height: 100vh;
+  margin-bottom: 4rem;
+  border-radius: 12px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 25px rgba(59, 130, 246, 0.25);
   opacity: 0;
   transform: translateY(40px);
   transition: all 0.8s ease;
+  padding: 3rem;
 }
 
+/* Sección visible con animación fade-up */
 section.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
+/* === Títulos futuristas === */
+h1, h2 {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.5px;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 3rem;
+  background: linear-gradient(90deg, var(--primary-neon), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+h2 {
+  font-size: 2rem;
+  color: var(--accent-green);
+}
+
+/* === Botones glassmorphism === */
+button, .btn {
+  background: var(--glass-bg);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  color: var(--text-light);
+  transition: all 0.3s ease;
+}
+
+button:hover, .btn:hover {
+  background: rgba(59,130,246,0.2);
+  color: var(--primary-neon);
+  box-shadow: 0 0 12px var(--primary-neon);
+  transform: translateY(-2px);
+}
+
+/* === Animación de entrada global === */
+@keyframes fadeInDashboard {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+main {
+  animation: fadeInDashboard 1s ease forwards;
+}
