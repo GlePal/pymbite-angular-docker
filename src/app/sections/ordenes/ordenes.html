@@ -1,74 +1,72 @@
-<section class="ordenes-section p-6 min-h-screen flex flex-col items-center">
-  <!-- Título -->
-  <h2 class="text-3xl font-bold mb-6 text-center">Realizar reparación</h2>
+<section class="ordenes-section min-h-screen flex flex-col items-center justify-start p-6">
+  <h2 class="text-3xl font-bold mb-6 text-center animate-on-scroll">Realizar reparación</h2>
 
-  <!-- Card envolvente compacto -->
-  <div class="form-wrapper w-full max-w-4xl p-4 rounded-xl">
-    <!-- Card interno del formulario -->
-    <div class="bg-gray-900/90 rounded-lg border border-white/10 backdrop-blur-md shadow-sm w-full p-4 flex flex-col h-[calc(100vh-5rem)]">
-      <!-- Formulario -->
-      <form (ngSubmit)="guardarOrden()" class="space-y-6 flex-1">
+  <div class="form-wrapper w-[75%] max-w-[1000px] p-4 rounded-xl">
+    <div class="bg-gray-900/90 w-full p-4 rounded-lg flex flex-col">
+      
+      <!-- Formulario completo -->
+      <form (ngSubmit)="guardarOrden()" class="space-y-4 text-sm">
+        
         <!-- Datos del Cliente -->
         <div>
-          <h3 class="text-lg font-semibold mb-3">Datos del Cliente</h3>
-          <div class="grid md:grid-cols-3 gap-4">
-            <input [(ngModel)]="orden.cliente.nombre" name="nombre" placeholder="Nombre" class="input" />
-            <input [(ngModel)]="orden.cliente.telefono" name="telefono" placeholder="Teléfono" class="input" />
-            <input [(ngModel)]="orden.cliente.direccion" name="direccion" placeholder="Dirección" class="input" />
+          <h3 class="text-base font-semibold mb-2 animate-on-scroll">Datos del Cliente</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            <input class="input" placeholder="Nombre" />
+            <input class="input" placeholder="Teléfono" />
+            <input class="input" placeholder="Dirección" />
           </div>
         </div>
 
         <!-- Datos del Dispositivo -->
         <div>
-          <h3 class="text-lg font-semibold mb-3">Datos del Dispositivo</h3>
-          <div class="grid md:grid-cols-3 gap-4">
-            <input [(ngModel)]="orden.dispositivo.tipo" name="tipo" placeholder="Tipo" class="input" />
-            <input [(ngModel)]="orden.dispositivo.marca" name="marca" placeholder="Marca" class="input" />
-            <input [(ngModel)]="orden.dispositivo.modelo" name="modelo" placeholder="Modelo" class="input" />
-            <input [(ngModel)]="orden.dispositivo.accesorios" name="accesorios" placeholder="Accesorios" class="input" />
-            <input [(ngModel)]="orden.dispositivo.condiciones" name="condiciones" placeholder="Condiciones físicas" class="input" />
-            <textarea [(ngModel)]="orden.dispositivo.descripcionAdicional" name="descripcionAdicional" placeholder="Descripción adicional" class="input md:col-span-3"></textarea>
+          <h3 class="text-base font-semibold mb-2 animate-on-scroll">Datos del Dispositivo</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            <input class="input" placeholder="Tipo" />
+            <input class="input" placeholder="Marca" />
+            <input class="input" placeholder="Modelo" />
+            <input class="input" placeholder="Accesorios" />
+            <input class="input" placeholder="Condiciones físicas" />
+            <textarea class="input md:col-span-3" placeholder="Descripción adicional"></textarea>
           </div>
         </div>
 
         <!-- Información de la Orden -->
         <div>
-          <h3 class="text-lg font-semibold mb-3">Información de la Orden</h3>
-          <div class="grid md:grid-cols-3 gap-4">
-            <input [(ngModel)]="orden.informacion.falla" name="falla" placeholder="Falla reportada" class="input" />
-            <textarea [(ngModel)]="orden.informacion.diagnostico" name="diagnostico" placeholder="Diagnóstico inicial" class="input md:col-span-2"></textarea>
-            <select [(ngModel)]="orden.informacion.estado" name="estado" class="input">
-              <option value="">Estado</option>
+          <h3 class="text-base font-semibold mb-2 animate-on-scroll">Información de la Orden</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            <input class="input" placeholder="Falla reportada" />
+            <textarea class="input md:col-span-2" placeholder="Diagnóstico inicial"></textarea>
+            <select class="input">
+              <option>Estado</option>
               <option>Recibido</option>
               <option>En proceso</option>
               <option>Finalizado</option>
             </select>
-            <select [(ngModel)]="orden.informacion.prioridad" name="prioridad" class="input">
-              <option value="">Prioridad</option>
+            <select class="input">
+              <option>Prioridad</option>
               <option>Alta</option>
               <option>Media</option>
               <option>Baja</option>
             </select>
-            <input type="date" [(ngModel)]="orden.informacion.fechaIngreso" name="fechaIngreso" class="input" />
-            <input type="date" [(ngModel)]="orden.informacion.fechaEntrega" name="fechaEntrega" class="input" />
-            <input type="date" [(ngModel)]="orden.informacion.fechaFinalizacion" name="fechaFinalizacion" class="input" />
+            <input type="date" class="input" />
+            <input type="date" class="input" />
           </div>
         </div>
 
         <!-- Costos y Logística -->
         <div>
-          <h3 class="text-lg font-semibold mb-3">Costos y Logística</h3>
-          <div class="grid md:grid-cols-3 gap-4">
-            <input [(ngModel)]="orden.costos.presupuesto" name="presupuesto" placeholder="Presupuesto estimado" class="input" />
-            <input [(ngModel)]="orden.costos.costoFinal" name="costoFinal" placeholder="Costo final" class="input" />
-            <select [(ngModel)]="orden.costos.formaPago" name="formaPago" class="input">
-              <option value="">Forma de pago</option>
+          <h3 class="text-base font-semibold mb-2 animate-on-scroll">Costos y Logística</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            <input class="input" placeholder="Presupuesto estimado" />
+            <input class="input" placeholder="Costo final" />
+            <select class="input">
+              <option>Forma de pago</option>
               <option>Bolívares</option>
               <option>Dólares</option>
               <option>Otro</option>
             </select>
             <label class="flex items-center space-x-2 md:col-span-3">
-              <input type="checkbox" [(ngModel)]="orden.costos.autorizacion" name="autorizacion" />
+              <input type="checkbox" />
               <span>Autorización del cliente</span>
             </label>
           </div>
@@ -76,16 +74,16 @@
 
         <!-- Seguimiento y Acciones -->
         <div>
-          <h3 class="text-lg font-semibold mb-3">Seguimiento y Acciones</h3>
-          <div class="grid md:grid-cols-3 gap-4">
-            <textarea [(ngModel)]="orden.seguimiento.notasInternas" name="notasInternas" placeholder="Notas internas" class="input md:col-span-2"></textarea>
-            <textarea [(ngModel)]="orden.seguimiento.historial" name="historial" placeholder="Historial de cambios" class="input md:col-span-3"></textarea>
+          <h3 class="text-base font-semibold mb-2 animate-on-scroll">Seguimiento y Acciones</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3">
+            <textarea class="input" placeholder="Notas internas"></textarea>
+            <textarea class="input" placeholder="Historial de cambios"></textarea>
           </div>
         </div>
 
-        <!-- Botón azul -->
-        <div class="text-right pt-4">
-          <button type="submit" class="px-6 py-2 rounded-md bg-blue-600 text-white font-semibold hover:bg-blue-700 transition">
+        <!-- Botón al final -->
+        <div class="text-right pt-2">
+          <button type="submit" class="btn-guardar animate-on-scroll">
             Guardar Orden
           </button>
         </div>
