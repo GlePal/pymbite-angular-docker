@@ -1,19 +1,29 @@
-<!-- Sección principal -->
-<section class="p-8 bg-[#0D1117] min-h-screen flex flex-col items-center">
-  <!-- Título -->
-  <h2 id="titulo" class="titulo text-3xl font-bold mb-8 text-white text-center">
+<!--
+  Archivo: gestion-reparaciones.html
+  Objetivo: corregir reglas de accesibilidad marcadas por ESLint:
+    1) @angular-eslint/template/click-events-have-key-events
+    2) @angular-eslint/template/interactive-supports-focus
+
+  Claves:
+    - El backdrop del modal es clickeable. Debe ser "focusable" y responder al teclado.
+    - Se usa role="button", tabindex="0" y keydown (Enter/Espacio) para cumplir ambas reglas.
+    - Todas las acciones usan <button> o <a> para que sean elementos nativos interactivos.
+-->
+
+<section class="page-wrap min-h-screen bg-[#0D1117] p-8 flex flex-col items-center">
+  <!-- Título visible con hover futurista -->
+  <h2 id="titulo" class="text-3xl font-bold mb-8 text-white text-center">
     Órdenes registradas
   </h2>
 
-  <!-- Card contenedor con fondo original -->
+  <!-- Card contenedor -->
   <div class="bg-gray-900/90 rounded-lg shadow-lg border border-white/10 p-6 w-full max-w-[95%] mx-auto">
-    
     <!-- Filtros -->
     <div class="flex flex-wrap gap-4 mb-6 text-white">
-      <!-- Estado -->
       <div class="w-full sm:w-40">
+        <!-- label asociado a control por for/id -->
         <label for="estadoFiltro" class="block mb-1 text-sm">Estado:</label>
-        <select id="estadoFiltro" [(ngModel)]="estadoFiltro" class="filtro-input w-full">
+        <select id="estadoFiltro" [(ngModel)]="estadoFiltro" class="w-full bg-gray-800 text-white rounded-md p-2 focus:ring-2 focus:ring-cyan-400">
           <option value="">Todos</option>
           <option value="Recibido">Recibido</option>
           <option value="En proceso">En proceso</option>
@@ -21,10 +31,9 @@
         </select>
       </div>
 
-      <!-- Prioridad -->
       <div class="w-full sm:w-40">
         <label for="prioridadFiltro" class="block mb-1 text-sm">Prioridad:</label>
-        <select id="prioridadFiltro" [(ngModel)]="prioridadFiltro" class="filtro-input w-full">
+        <select id="prioridadFiltro" [(ngModel)]="prioridadFiltro" class="w-full bg-gray-800 text-white rounded-md p-2 focus:ring-2 focus:ring-cyan-400">
           <option value="">Todas</option>
           <option value="Alta">Alta</option>
           <option value="Media">Media</option>
@@ -32,14 +41,13 @@
         </select>
       </div>
 
-      <!-- Cliente -->
       <div class="w-full sm:w-64">
         <label for="clienteFiltro" class="block mb-1 text-sm">Cliente:</label>
         <input
           id="clienteFiltro"
           [(ngModel)]="clienteFiltro"
           placeholder="Buscar cliente..."
-          class="filtro-input w-full"
+          class="w-full bg-gray-800 text-white rounded-md p-2 focus:ring-2 focus:ring-cyan-400"
         />
       </div>
     </div>
@@ -67,7 +75,7 @@
             <th class="px-4 py-2">Finalización</th>
             <th class="px-4 py-2">Presupuesto</th>
             <th class="px-4 py-2">Costo</th>
-            <th class="px-4 py-2">Pago</th>
+            <th class="px-4 py-2">Forma de pago</th>
             <th class="px-4 py-2">Autorización</th>
             <th class="px-4 py-2">Notas</th>
             <th class="px-4 py-2">Historial</th>
@@ -76,7 +84,6 @@
         </thead>
 
         <tbody class="divide-y divide-white/10">
-          <!-- ✅ Angular 20: nueva sintaxis de control flow -->
           @for (orden of ordenesFiltradas; track $index) {
             <tr>
               <td class="px-4 py-2">{{ orden.cliente.nombre }}</td>
@@ -93,25 +100,25 @@
               <td class="px-4 py-2">{{ orden.informacion.falla }}</td>
               <td class="px-4 py-2">{{ orden.informacion.diagnostico }}</td>
 
-              <!-- Estado con badge -->
+              <!-- Estado: badge con degradado futurista -->
               <td class="px-4 py-2">
-                <span class="badge"
+                <span class="inline-block px-3 py-1 rounded-md font-semibold text-xs text-white shadow"
                   [ngClass]="{
-                    'badge-estado-recibido': orden.informacion.estado === 'Recibido',
-                    'badge-estado-proceso': orden.informacion.estado === 'En proceso',
-                    'badge-estado-finalizado': orden.informacion.estado === 'Finalizado'
+                    'bg-gradient-to-r from-blue-500 to-blue-600': orden.informacion.estado === 'Recibido',
+                    'bg-gradient-to-r from-yellow-400 to-orange-500': orden.informacion.estado === 'En proceso',
+                    'bg-gradient-to-r from-emerald-500 to-teal-400': orden.informacion.estado === 'Finalizado'
                   }">
                   {{ orden.informacion.estado }}
                 </span>
               </td>
 
-              <!-- Prioridad con badge -->
+              <!-- Prioridad: badge con degradado futurista -->
               <td class="px-4 py-2">
-                <span class="badge"
+                <span class="inline-block px-3 py-1 rounded-md font-semibold text-xs text-white shadow"
                   [ngClass]="{
-                    'badge-prioridad-alta': orden.informacion.prioridad === 'Alta',
-                    'badge-prioridad-media': orden.informacion.prioridad === 'Media',
-                    'badge-prioridad-baja': orden.informacion.prioridad === 'Baja'
+                    'bg-gradient-to-r from-red-500 to-red-600': orden.informacion.prioridad === 'Alta',
+                    'bg-gradient-to-r from-orange-500 to-yellow-400': orden.informacion.prioridad === 'Media',
+                    'bg-gradient-to-r from-green-500 to-teal-400': orden.informacion.prioridad === 'Baja'
                   }">
                   {{ orden.informacion.prioridad }}
                 </span>
@@ -129,11 +136,32 @@
               <td class="px-4 py-2">{{ orden.seguimiento.notasInternas }}</td>
               <td class="px-4 py-2">{{ orden.seguimiento.historial }}</td>
 
-              <!-- Acciones -->
-              <td class="px-4 py-2 flex justify-center gap-2">
-                <button (click)="editarOrden($index)" title="Editar" class="btn-icon text-blue-400">✏️</button>
-                <button (click)="eliminarOrden($index)" title="Eliminar" class="btn-icon text-red-500">🗑️</button>
-                <button (click)="imprimirOrden($index)" title="Imprimir" class="btn-icon text-white">🖨️</button>
+              <!-- Acciones accesibles -->
+              <td class="px-4 py-2">
+                <div class="flex justify-center gap-2">
+                  <!-- Editar: usa <a> con routerLink (nativo accesible) -->
+                  <a
+                    [routerLink]="['/ordenes', orden.id ?? $index, 'editar']"
+                    class="text-blue-400 px-2 py-1 rounded hover:bg-white/10"
+                    aria-label="Editar orden"
+                  >✏️</a>
+
+                  <!-- Botón eliminar: <button> nativo accesible -->
+                  <button
+                    type="button"
+                    (click)="eliminarOrden($index)"
+                    class="text-red-500 px-2 py-1 rounded hover:bg-white/10"
+                    aria-label="Eliminar orden"
+                  >🗑️</button>
+
+                  <!-- Botón ver: <button> nativo accesible -->
+                  <button
+                    type="button"
+                    (click)="verOrden($index)"
+                    class="text-green-400 px-2 py-1 rounded hover:bg-white/10"
+                    aria-label="Ver detalle"
+                  >👁️</button>
+                </div>
               </td>
             </tr>
           }
@@ -141,4 +169,89 @@
       </table>
     </div>
   </div>
+
+  <!-- Modal accesible -->
+  @if (modalVisible && ordenSeleccionada) {
+    <!--
+      Backdrop clickeable:
+      - role="button" + tabindex="0" -> focusable e interactivo
+      - keydown.enter / keydown.space -> soporte teclado (cumple la regla de ESLint)
+    -->
+    <div
+      class="fixed inset-0 bg-black/60 flex items-center justify-center z-50"
+      role="button"
+      tabindex="0"
+      (click)="cerrarModal()"
+      (keydown.enter)="cerrarModal()"
+      (keydown.space)="cerrarModal()"
+      aria-label="Cerrar modal"
+    >
+      <!-- Contenido modal: detenemos la propagación del click para no cerrar al interactuar dentro -->
+      <div class="bg-gray-900 text-white p-6 rounded-lg shadow-xl w-[95%] max-w-[720px] grid grid-cols-1 sm:grid-cols-2 gap-4"
+           (click)="$event.stopPropagation()">
+        <h3 class="text-xl font-semibold sm:col-span-2">Detalle de la orden</h3>
+
+        <p><strong>Cliente:</strong> {{ ordenSeleccionada.cliente.nombre }}</p>
+        <p><strong>Teléfono:</strong> {{ ordenSeleccionada.cliente.telefono }}</p>
+        <p><strong>Dirección:</strong> {{ ordenSeleccionada.cliente.direccion }}</p>
+
+        <p><strong>Tipo:</strong> {{ ordenSeleccionada.dispositivo.tipo }}</p>
+        <p><strong>Marca:</strong> {{ ordenSeleccionada.dispositivo.marca }}</p>
+        <p><strong>Modelo:</strong> {{ ordenSeleccionada.dispositivo.modelo }}</p>
+        <p><strong>Accesorios:</strong> {{ ordenSeleccionada.dispositivo.accesorios }}</p>
+        <p><strong>Condiciones:</strong> {{ ordenSeleccionada.dispositivo.condiciones }}</p>
+
+        <p class="sm:col-span-2"><strong>Descripción:</strong> {{ ordenSeleccionada.dispositivo.descripcionAdicional }}</p>
+
+        <p><strong>Falla:</strong> {{ ordenSeleccionada.informacion.falla }}</p>
+        <p><strong>Diagnóstico:</strong> {{ ordenSeleccionada.informacion.diagnostico }}</p>
+
+        <p>
+          <strong>Estado:</strong>
+          <span class="inline-block px-3 py-1 rounded-md font-semibold text-xs text-white shadow"
+            [ngClass]="{
+              'bg-gradient-to-r from-blue-500 to-blue-600': ordenSeleccionada.informacion.estado === 'Recibido',
+              'bg-gradient-to-r from-yellow-400 to-orange-500': ordenSeleccionada.informacion.estado === 'En proceso',
+              'bg-gradient-to-r from-emerald-500 to-teal-400': ordenSeleccionada.informacion.estado === 'Finalizado'
+            }">
+            {{ ordenSeleccionada.informacion.estado }}
+          </span>
+        </p>
+
+        <p>
+          <strong>Prioridad:</strong>
+          <span class="inline-block px-3 py-1 rounded-md font-semibold text-xs text-white shadow"
+            [ngClass]="{
+              'bg-gradient-to-r from-red-500 to-red-600': ordenSeleccionada.informacion.prioridad === 'Alta',
+              'bg-gradient-to-r from-orange-500 to-yellow-400': ordenSeleccionada.informacion.prioridad === 'Media',
+              'bg-gradient-to-r from-green-500 to-teal-400': ordenSeleccionada.informacion.prioridad === 'Baja'
+            }">
+            {{ ordenSeleccionada.informacion.prioridad }}
+          </span>
+        </p>
+
+        <p><strong>Ingreso:</strong> {{ ordenSeleccionada.informacion.fechaIngreso }}</p>
+        <p><strong>Entrega:</strong> {{ ordenSeleccionada.informacion.fechaEntrega }}</p>
+        <p><strong>Finalización:</strong> {{ ordenSeleccionada.informacion.fechaFinalizacion || '—' }}</p>
+
+        <p><strong>Presupuesto:</strong> {{ ordenSeleccionada.costos.presupuesto }}</p>
+        <p><strong>Costo:</strong> {{ ordenSeleccionada.costos.costoFinal | currency:'USD' }}</p>
+        <p><strong>Forma de pago:</strong> {{ ordenSeleccionada.costos.formaPago }}</p>
+        <p><strong>Autorización:</strong> {{ ordenSeleccionada.costos.autorizacion ? 'Sí' : 'No' }}</p>
+
+        <!-- Footer modal -->
+        <div class="sm:col-span-2 mt-2 flex justify-end gap-3">
+          <!-- Botón cerrar nativo accesible -->
+          <button
+            type="button"
+            class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+            (click)="cerrarModal()"
+            aria-label="Cerrar"
+          >
+            Cerrar
+          </button>
+        </div>
+      </div>
+    </div>
+  }
 </section>

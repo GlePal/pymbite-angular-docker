@@ -1,50 +1,35 @@
-:host {
-  display: block;
-}
-
-/* Sección principal */
-section {
+/* Layout base */
+.page-wrap {
   background: #0D1117;
-  min-height: 100vh;
-  padding: 2rem 1rem;
 }
 
-/* Título con animación scroll y hover degradado */
+/* Título visible con hover futurista */
 .titulo {
   font-size: 2rem;
   font-weight: bold;
   text-align: center;
   color: #ffffff;
   margin-bottom: 2rem;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.titulo-visible {
   opacity: 1;
   transform: translateY(0);
+  transition: color 0.6s ease;
 }
 .titulo:hover {
-  background: linear-gradient(90deg, #3B82F6, #00FFB2);
+  background: linear-gradient(90deg, #00f5ff, #00ffb2, #3B82F6);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  color: transparent;
-  text-shadow: 0 0 6px rgba(0, 255, 178, 0.3);
+  text-shadow: 0 0 8px rgba(0, 255, 178, 0.4);
 }
 
-/* Card contenedor con fondo original */
-.bg-gray-900\/90 {
-  background-color: rgba(17, 24, 39, 0.9);
+/* Card contenedor */
+.card {
   border-radius: 14px;
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.25),
-              0 0 25px rgba(0, 255, 178, 0.15);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.25), 0 0 25px rgba(0, 255, 178, 0.15);
 }
 
-/* Inputs de filtros */
-#estadoFiltro,
-#prioridadFiltro,
-#clienteFiltro {
+/* Inputs de filtros con focus futurista */
+.filtro-input {
   background-color: #1f2937;
   color: #fff;
   border: 1px solid rgba(255,255,255,0.1);
@@ -52,14 +37,11 @@ section {
   padding: 0.45rem 0.6rem;
   transition: all 0.3s ease;
 }
-#estadoFiltro:focus,
-#prioridadFiltro:focus,
-#clienteFiltro:focus {
+.filtro-input:focus {
   outline: none;
   border-image: linear-gradient(90deg, #3B82F6, #00FFB2) 1;
   border-width: 2px;
-  box-shadow: 0 0 10px rgba(59, 130, 246, 0.6),
-              0 0 15px rgba(0, 255, 178, 0.4);
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.6), 0 0 15px rgba(0, 255, 178, 0.4);
 }
 
 /* Tabla */
@@ -79,39 +61,120 @@ tbody tr {
   border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 tbody tr:hover {
-  background: linear-gradient(90deg, #1e3a8a, #0ea5e9);
-  transition: background 0.3s ease;
+  background: rgba(59, 130, 246, 0.08); /* Hover sutil */
+  transition: background 0.25s ease;
 }
 
-/* Badges */
+/* Badges futuristas */
 .badge {
-  padding: 0.25rem 0.75rem;
+  display: inline-block;
+  padding: 0.35rem 0.7rem;
   border-radius: 6px;
   font-weight: 600;
+  font-size: 0.75rem;
+  white-space: nowrap;
   color: #fff;
+  box-shadow: 0 0 6px rgba(255,255,255,0.15);
 }
+/* Estado */
 .badge-estado-recibido {
   background: linear-gradient(90deg, #3B82F6, #2563eb);
 }
 .badge-estado-proceso {
-  background: linear-gradient(90deg, #facc15, #fbbf24);
+  background: linear-gradient(90deg, #facc15, #f97316);
 }
 .badge-estado-finalizado {
-  background: linear-gradient(90deg, #10b981, #22c55e);
+  background: linear-gradient(90deg, #10b981, #00ffb2);
 }
+/* Prioridad */
 .badge-prioridad-alta {
   background: linear-gradient(90deg, #ef4444, #dc2626);
 }
 .badge-prioridad-media {
-  background: linear-gradient(90deg, #f97316, #f59e0b);
+  background: linear-gradient(90deg, #f97316, #facc15);
 }
 .badge-prioridad-baja {
-  background: linear-gradient(90deg, #10b981, #22c55e);
+  background: linear-gradient(90deg, #22c55e, #00ffb2);
 }
 
-/* Responsive tabla */
+/* Botones de acción */
+.btn-icon {
+  font-size: 1rem;
+  padding: 0.4rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+.btn-icon:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+.modal-content {
+  background: #1f2937;
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 700px;
+  width: 95%;
+  box-shadow: 0 0 20px rgba(255,255,255,0.2);
+
+  /* Grid ordenado */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem 2rem;
+}
+.modal-content h3 {
+  grid-column: span 2;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.modal-content p {
+  margin: 0;
+}
+.modal-content .full-row {
+  grid-column: span 2;
+}
+.modal-actions {
+  grid-column: span 2;
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+/* Botón de cerrar (rojo, sin hover azul/verde) */
+.btn-close {
+  background: #ef4444;
+  color: #fff;
+  padding: 0.55rem 1rem;
+  border-radius: 8px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.btn-close:hover {
+  background: #dc2626;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .overflow-x-auto {
-    overflow-x: scroll;
+  .filters .w-full,
+  .filters .sm\:w-40,
+  .filters .sm\:w-64 {
+    width: 100%;
+  }
+  .modal-content {
+    grid-template-columns: 1fr; /* una columna en móvil */
+    gap: 0.75rem 1rem;
   }
 }

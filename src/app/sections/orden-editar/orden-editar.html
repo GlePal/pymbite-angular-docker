@@ -1,0 +1,86 @@
+<!--
+  Archivo: orden-editar.html
+  Objetivo: corregir reglas de accesibilidad de ESLint para labels:
+    - @angular-eslint/template/label-has-associated-control
+
+  Claves:
+    - Cada <label> tiene atributo for="..." que coincide con id del input/select/textarea
+    - Se usan clases Tailwind para estilo, reduciendo CSS adicional
+-->
+
+<section class="p-8 bg-[#0D1117] min-h-screen flex flex-col items-center">
+  <h2 class="text-2xl font-bold mb-6 text-white">
+    Editar Orden #{{ ordenId }}
+  </h2>
+
+  <form class="bg-gray-900/90 p-6 rounded-lg shadow-lg w-full max-w-lg text-white space-y-4">
+    <!-- Cliente -->
+    <div>
+      <!-- label asociado al input por for/id -->
+      <label for="cliente" class="block mb-1">Cliente</label>
+      <input
+        id="cliente"
+        type="text"
+        class="w-full bg-gray-800 text-white rounded-md p-2 focus:ring-2 focus:ring-cyan-400"
+        placeholder="Nombre del cliente"
+      />
+    </div>
+
+    <!-- Estado -->
+    <div>
+      <label for="estado" class="block mb-1">Estado</label>
+      <select
+        id="estado"
+        class="w-full bg-gray-800 text-white rounded-md p-2 focus:ring-2 focus:ring-cyan-400"
+      >
+        <option>Recibido</option>
+        <option>En proceso</option>
+        <option>Finalizado</option>
+      </select>
+    </div>
+
+    <!-- Prioridad -->
+    <div>
+      <label for="prioridad" class="block mb-1">Prioridad</label>
+      <select
+        id="prioridad"
+        class="w-full bg-gray-800 text-white rounded-md p-2 focus:ring-2 focus:ring-cyan-400"
+      >
+        <option>Alta</option>
+        <option>Media</option>
+        <option>Baja</option>
+      </select>
+    </div>
+
+    <!-- Notas internas -->
+    <div>
+      <label for="notas" class="block mb-1">Notas internas</label>
+      <textarea
+        id="notas"
+        class="w-full bg-gray-800 text-white rounded-md p-2 focus:ring-2 focus:ring-cyan-400"
+        rows="3"
+      ></textarea>
+    </div>
+
+    <!-- Acciones -->
+    <div class="flex justify-end gap-3">
+      <!-- Cancelar: routerLink regresa a gestion-reparaciones -->
+      <a
+        routerLink="/gestion-reparaciones"
+        class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+        aria-label="Cancelar edición"
+      >
+        Cancelar
+      </a>
+
+      <button
+        type="button"
+        (click)="guardarCambios()"
+        class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+        aria-label="Guardar cambios"
+      >
+        Guardar
+      </button>
+    </div>
+  </form>
+</section>
