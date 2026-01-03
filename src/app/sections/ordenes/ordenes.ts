@@ -2,53 +2,39 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-// Importamos la interfaz Orden
-import { Orden } from './models/orden.interface';
+// Importamos la directiva
+import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.directive';
 
-// Importamos el servicio
+// Importamos la interfaz y servicio
+import { Orden } from './models/orden.interface';
 import { OrdenesService } from './services/ordenes.service';
 
 @Component({
   selector: 'app-ordenes',
   standalone: true,
-  imports: [CommonModule, FormsModule], // ✅ añadimos CommonModule
+  imports: [CommonModule, FormsModule, AnimateOnScrollDirective], // ✅ añadimos la directiva
   templateUrl: './ordenes.html',
   styleUrls: ['./ordenes.css'],
 })
 export class Ordenes {
-  // Inyectamos el servicio
   private ordenesService = inject(OrdenesService);
 
-  // Objeto tipado con la interfaz Orden
   orden: Orden = {
     cliente: { nombre: '', telefono: '', direccion: '' },
     dispositivo: {
-      tipo: '',
-      marca: '',
-      modelo: '',
-      accesorios: '',
-      condiciones: '',
-      descripcionAdicional: '',
+      tipo: '', marca: '', modelo: '', accesorios: '',
+      condiciones: '', descripcionAdicional: '',
     },
     informacion: {
-      falla: '',
-      diagnostico: '',
+      falla: '', diagnostico: '',
       estado: '' as Orden['informacion']['estado'],
       prioridad: '' as Orden['informacion']['prioridad'],
-      fechaIngreso: '',
-      fechaEntrega: '',
-      fechaFinalizacion: '',
+      fechaIngreso: '', fechaEntrega: '', fechaFinalizacion: '',
     },
-    costos: {
-      presupuesto: '',
-      costoFinal: 0,
-      formaPago: '',
-      autorizacion: false,
-    },
+    costos: { presupuesto: '', costoFinal: 0, formaPago: '', autorizacion: false },
     seguimiento: { notasInternas: '', historial: '' },
   };
 
-  // Método para guardar la orden
   guardarOrden(): void {
     this.ordenesService.createOrden(this.orden).subscribe({
       next: (ordenGuardada) => {
@@ -63,33 +49,20 @@ export class Ordenes {
     });
   }
 
-  // Método auxiliar para limpiar el formulario
   resetForm(): void {
     this.orden = {
       cliente: { nombre: '', telefono: '', direccion: '' },
       dispositivo: {
-        tipo: '',
-        marca: '',
-        modelo: '',
-        accesorios: '',
-        condiciones: '',
-        descripcionAdicional: '',
+        tipo: '', marca: '', modelo: '', accesorios: '',
+        condiciones: '', descripcionAdicional: '',
       },
       informacion: {
-        falla: '',
-        diagnostico: '',
+        falla: '', diagnostico: '',
         estado: '' as Orden['informacion']['estado'],
         prioridad: '' as Orden['informacion']['prioridad'],
-        fechaIngreso: '',
-        fechaEntrega: '',
-        fechaFinalizacion: '',
+        fechaIngreso: '', fechaEntrega: '', fechaFinalizacion: '',
       },
-      costos: {
-        presupuesto: '',
-        costoFinal: 0,
-        formaPago: '',
-        autorizacion: false,
-      },
+      costos: { presupuesto: '', costoFinal: 0, formaPago: '', autorizacion: false },
       seguimiento: { notasInternas: '', historial: '' },
     };
   }

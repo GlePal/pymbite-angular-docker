@@ -5,15 +5,15 @@
     Órdenes registradas
   </h2>
 
-  <!-- Card contenedor -->
+  <!-- Card contenedor con fondo original -->
   <div class="bg-gray-900/90 rounded-lg shadow-lg border border-white/10 p-6 w-full max-w-[95%] mx-auto">
     
     <!-- Filtros -->
     <div class="flex flex-wrap gap-4 mb-6 text-white">
       <!-- Estado -->
-      <div>
+      <div class="w-full sm:w-40">
         <label for="estadoFiltro" class="block mb-1 text-sm">Estado:</label>
-        <select id="estadoFiltro" [(ngModel)]="estadoFiltro" class="bg-gray-800 text-white px-3 py-2 rounded">
+        <select id="estadoFiltro" [(ngModel)]="estadoFiltro" class="filtro-input w-full">
           <option value="">Todos</option>
           <option value="Recibido">Recibido</option>
           <option value="En proceso">En proceso</option>
@@ -22,9 +22,9 @@
       </div>
 
       <!-- Prioridad -->
-      <div>
+      <div class="w-full sm:w-40">
         <label for="prioridadFiltro" class="block mb-1 text-sm">Prioridad:</label>
-        <select id="prioridadFiltro" [(ngModel)]="prioridadFiltro" class="bg-gray-800 text-white px-3 py-2 rounded">
+        <select id="prioridadFiltro" [(ngModel)]="prioridadFiltro" class="filtro-input w-full">
           <option value="">Todas</option>
           <option value="Alta">Alta</option>
           <option value="Media">Media</option>
@@ -33,13 +33,13 @@
       </div>
 
       <!-- Cliente -->
-      <div class="w-64">
+      <div class="w-full sm:w-64">
         <label for="clienteFiltro" class="block mb-1 text-sm">Cliente:</label>
         <input
           id="clienteFiltro"
           [(ngModel)]="clienteFiltro"
           placeholder="Buscar cliente..."
-          class="bg-gray-800 text-white px-3 py-2 rounded w-full"
+          class="filtro-input w-full"
         />
       </div>
     </div>
@@ -130,16 +130,10 @@
               <td class="px-4 py-2">{{ orden.seguimiento.historial }}</td>
 
               <!-- Acciones -->
-              <td class="px-4 py-2 space-x-3 flex justify-center">
-                <button (click)="editarOrden($index)" title="Editar" class="text-blue-400 hover:text-blue-300">
-                  <span class="icono" aria-hidden="true">✏️</span>
-                </button>
-                <button (click)="eliminarOrden($index)" title="Eliminar" class="text-red-500 hover:text-red-400">
-                  <span class="icono" aria-hidden="true">🗑️</span>
-                </button>
-                <button (click)="imprimirOrden($index)" title="Imprimir" class="text-white hover:text-gray-300">
-                  <span class="icono" aria-hidden="true">🖨️</span>
-                </button>
+              <td class="px-4 py-2 flex justify-center gap-2">
+                <button (click)="editarOrden($index)" title="Editar" class="btn-icon text-blue-400">✏️</button>
+                <button (click)="eliminarOrden($index)" title="Eliminar" class="btn-icon text-red-500">🗑️</button>
+                <button (click)="imprimirOrden($index)" title="Imprimir" class="btn-icon text-white">🖨️</button>
               </td>
             </tr>
           }

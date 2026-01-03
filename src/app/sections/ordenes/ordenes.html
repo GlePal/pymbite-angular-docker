@@ -1,15 +1,16 @@
 <section class="ordenes-section min-h-screen flex flex-col items-center justify-start p-6">
-  <h2 class="text-3xl font-bold mb-6 text-center animate-on-scroll">Realizar reparación</h2>
+  <h2 class="text-3xl font-bold mb-6 text-center animate-on-scroll" appAnimateOnScroll>
+    Realizar reparación
+  </h2>
 
   <div class="form-wrapper w-[75%] max-w-[1000px] p-4 rounded-xl">
     <div class="bg-gray-900/90 w-full p-4 rounded-lg flex flex-col">
       
-      <!-- Formulario completo -->
       <form (ngSubmit)="guardarOrden()" class="space-y-4 text-sm">
         
         <!-- Datos del Cliente -->
         <div>
-          <h3 class="text-base font-semibold mb-2 animate-on-scroll">Datos del Cliente</h3>
+          <h3 class="text-base font-semibold mb-2 animate-on-scroll" appAnimateOnScroll>Datos del Cliente</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
             <input class="input" placeholder="Nombre" />
             <input class="input" placeholder="Teléfono" />
@@ -19,7 +20,7 @@
 
         <!-- Datos del Dispositivo -->
         <div>
-          <h3 class="text-base font-semibold mb-2 animate-on-scroll">Datos del Dispositivo</h3>
+          <h3 class="text-base font-semibold mb-2 animate-on-scroll" appAnimateOnScroll>Datos del Dispositivo</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
             <input class="input" placeholder="Tipo" />
             <input class="input" placeholder="Marca" />
@@ -32,7 +33,7 @@
 
         <!-- Información de la Orden -->
         <div>
-          <h3 class="text-base font-semibold mb-2 animate-on-scroll">Información de la Orden</h3>
+          <h3 class="text-base font-semibold mb-2 animate-on-scroll" appAnimateOnScroll>Información de la Orden</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
             <input class="input" placeholder="Falla reportada" />
             <textarea class="input md:col-span-2" placeholder="Diagnóstico inicial"></textarea>
@@ -55,7 +56,7 @@
 
         <!-- Costos y Logística -->
         <div>
-          <h3 class="text-base font-semibold mb-2 animate-on-scroll">Costos y Logística</h3>
+          <h3 class="text-base font-semibold mb-2 animate-on-scroll" appAnimateOnScroll>Costos y Logística</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
             <input class="input" placeholder="Presupuesto estimado" />
             <input class="input" placeholder="Costo final" />
@@ -74,7 +75,7 @@
 
         <!-- Seguimiento y Acciones -->
         <div>
-          <h3 class="text-base font-semibold mb-2 animate-on-scroll">Seguimiento y Acciones</h3>
+          <h3 class="text-base font-semibold mb-2 animate-on-scroll" appAnimateOnScroll>Seguimiento y Acciones</h3>
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-3">
             <textarea class="input" placeholder="Notas internas"></textarea>
             <textarea class="input" placeholder="Historial de cambios"></textarea>
@@ -83,7 +84,7 @@
 
         <!-- Botón al final -->
         <div class="text-right pt-2">
-          <button type="submit" class="btn-guardar animate-on-scroll">
+          <button type="submit" class="btn-guardar animate-on-scroll" appAnimateOnScroll>
             Guardar Orden
           </button>
         </div>

@@ -26,6 +26,17 @@
   z-index: 1;
 }
 
+/* Animación scroll */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Título */
 .ordenes-section h2 {
   font-size: 2rem;
@@ -90,17 +101,34 @@
 
 /* Botón */
 .btn-guardar {
-  background: #2563eb; /* azul sólido */
+  background: #2563eb; /* azul sólido base */
   color: #fff;
-  padding: 0.5rem 1.25rem;
+  padding: 0.6rem 1.5rem;
   border-radius: 8px;
   font-weight: 600;
-  transition: all 0.3s ease;
+  transition: all 0.35s ease;
   box-shadow: none;
+  display: inline-block;
+  text-align: center;
+  opacity: 0; /* animación scroll */
+  transform: translateY(20px);
 }
+
+/* Hover: intensifica el degradado y añade glow */
 .btn-guardar:hover {
-  background: #1d4ed8; /* azul más oscuro */
+  background: linear-gradient(90deg, #1d4ed8, #0509f0); /* azul más fuerte + verde más intenso */
+  box-shadow:
+    0 0 12px rgba(59, 130, 246, 0.6),
+    0 0 18px rgba(0, 255, 178, 0.4);
   transform: translateY(-2px);
+}
+
+
+/* Animación scroll */
+.btn-guardar.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
 /* Footer del botón */
