@@ -1,86 +1,130 @@
-<!--
-  Archivo: orden-editar.html
-  Objetivo: corregir reglas de accesibilidad de ESLint para labels:
-    - @angular-eslint/template/label-has-associated-control
-
-  Claves:
-    - Cada <label> tiene atributo for="..." que coincide con id del input/select/textarea
-    - Se usan clases Tailwind para estilo, reduciendo CSS adicional
--->
-
-<section class="p-8 bg-[#0D1117] min-h-screen flex flex-col items-center">
-  <h2 class="text-2xl font-bold mb-6 text-white">
-    Editar Orden #{{ ordenId }}
+<section class="page-wrap min-h-screen bg-[#0D1117] p-8 flex flex-col items-center">
+  <h2 class="text-3xl font-bold mb-8 text-white text-center">
+    Editar Orden
   </h2>
 
-  <form class="bg-gray-900/90 p-6 rounded-lg shadow-lg w-full max-w-lg text-white space-y-4">
-    <!-- Cliente -->
-    <div>
-      <!-- label asociado al input por for/id -->
-      <label for="cliente" class="block mb-1">Cliente</label>
-      <input
-        id="cliente"
-        type="text"
-        class="w-full bg-gray-800 text-white rounded-md p-2 focus:ring-2 focus:ring-cyan-400"
-        placeholder="Nombre del cliente"
-      />
-    </div>
+  @if (ordenSeleccionada) {
+    <form class="bg-gray-900/90 rounded-lg shadow-lg border border-white/10 p-6 w-full max-w-[800px] mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4"
+          (ngSubmit)="guardarCambios()" #form="ngForm">
 
-    <!-- Estado -->
-    <div>
-      <label for="estado" class="block mb-1">Estado</label>
-      <select
-        id="estado"
-        class="w-full bg-gray-800 text-white rounded-md p-2 focus:ring-2 focus:ring-cyan-400"
-      >
-        <option>Recibido</option>
-        <option>En proceso</option>
-        <option>Finalizado</option>
-      </select>
-    </div>
+      <!-- Cliente -->
+      <h3 class="text-lg font-semibold sm:col-span-2 text-cyan-400">Cliente</h3>
+      <label>Nombre:
+        <input [(ngModel)]="ordenSeleccionada.cliente.nombre" name="clienteNombre"
+               class="w-full bg-gray-800 text-white rounded-md p-2" required />
+      </label>
+      <label>Teléfono:
+        <input [(ngModel)]="ordenSeleccionada.cliente.telefono" name="clienteTelefono"
+               class="w-full bg-gray-800 text-white rounded-md p-2" required />
+      </label>
+      <label class="sm:col-span-2">Dirección:
+        <input [(ngModel)]="ordenSeleccionada.cliente.direccion" name="clienteDireccion"
+               class="w-full bg-gray-800 text-white rounded-md p-2" />
+      </label>
 
-    <!-- Prioridad -->
-    <div>
-      <label for="prioridad" class="block mb-1">Prioridad</label>
-      <select
-        id="prioridad"
-        class="w-full bg-gray-800 text-white rounded-md p-2 focus:ring-2 focus:ring-cyan-400"
-      >
-        <option>Alta</option>
-        <option>Media</option>
-        <option>Baja</option>
-      </select>
-    </div>
+      <!-- Dispositivo -->
+      <h3 class="text-lg font-semibold sm:col-span-2 text-cyan-400">Dispositivo</h3>
+      <label>Tipo:
+        <input [(ngModel)]="ordenSeleccionada.dispositivo.tipo" name="dispositivoTipo"
+               class="w-full bg-gray-800 text-white rounded-md p-2" />
+      </label>
+      <label>Marca:
+        <input [(ngModel)]="ordenSeleccionada.dispositivo.marca" name="dispositivoMarca"
+               class="w-full bg-gray-800 text-white rounded-md p-2" />
+      </label>
+      <label>Modelo:
+        <input [(ngModel)]="ordenSeleccionada.dispositivo.modelo" name="dispositivoModelo"
+               class="w-full bg-gray-800 text-white rounded-md p-2" />
+      </label>
+      <label>Accesorios:
+        <input [(ngModel)]="ordenSeleccionada.dispositivo.accesorios" name="dispositivoAccesorios"
+               class="w-full bg-gray-800 text-white rounded-md p-2" />
+      </label>
+      <label class="sm:col-span-2">Condiciones:
+        <input [(ngModel)]="ordenSeleccionada.dispositivo.condiciones" name="dispositivoCondiciones"
+               class="w-full bg-gray-800 text-white rounded-md p-2" />
+      </label>
+      <label class="sm:col-span-2">Descripción adicional:
+        <textarea [(ngModel)]="ordenSeleccionada.dispositivo.descripcionAdicional" name="dispositivoDescripcion"
+                  class="w-full bg-gray-800 text-white rounded-md p-2"></textarea>
+      </label>
 
-    <!-- Notas internas -->
-    <div>
-      <label for="notas" class="block mb-1">Notas internas</label>
-      <textarea
-        id="notas"
-        class="w-full bg-gray-800 text-white rounded-md p-2 focus:ring-2 focus:ring-cyan-400"
-        rows="3"
-      ></textarea>
-    </div>
+      <!-- Información -->
+      <h3 class="text-lg font-semibold sm:col-span-2 text-cyan-400">Información</h3>
+      <label>Falla:
+        <input [(ngModel)]="ordenSeleccionada.informacion.falla" name="informacionFalla"
+               class="w-full bg-gray-800 text-white rounded-md p-2" />
+      </label>
+      <label>Diagnóstico:
+        <input [(ngModel)]="ordenSeleccionada.informacion.diagnostico" name="informacionDiagnostico"
+               class="w-full bg-gray-800 text-white rounded-md p-2" />
+      </label>
+      <label>Estado:
+        <select [(ngModel)]="ordenSeleccionada.informacion.estado" name="informacionEstado"
+                class="w-full bg-gray-800 text-white rounded-md p-2">
+          <option value="Recibido">Recibido</option>
+          <option value="En proceso">En proceso</option>
+          <option value="Finalizado">Finalizado</option>
+        </select>
+      </label>
+      <label>Prioridad:
+        <select [(ngModel)]="ordenSeleccionada.informacion.prioridad" name="informacionPrioridad"
+                class="w-full bg-gray-800 text-white rounded-md p-2">
+          <option value="Alta">Alta</option>
+          <option value="Media">Media</option>
+          <option value="Baja">Baja</option>
+        </select>
+      </label>
+      <label>Fecha ingreso:
+        <input type="date" [(ngModel)]="ordenSeleccionada.informacion.fechaIngreso" name="informacionIngreso"
+               class="w-full bg-gray-800 text-white rounded-md p-2" />
+      </label>
+      <label>Fecha entrega:
+        <input type="date" [(ngModel)]="ordenSeleccionada.informacion.fechaEntrega" name="informacionEntrega"
+               class="w-full bg-gray-800 text-white rounded-md p-2" />
+      </label>
+      <label>Fecha finalización:
+        <input type="date" [(ngModel)]="ordenSeleccionada.informacion.fechaFinalizacion" name="informacionFinalizacion"
+               class="w-full bg-gray-800 text-white rounded-md p-2" />
+      </label>
 
-    <!-- Acciones -->
-    <div class="flex justify-end gap-3">
-      <!-- Cancelar: routerLink regresa a gestion-reparaciones -->
-      <a
-        routerLink="/gestion-reparaciones"
-        class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-        aria-label="Cancelar edición"
-      >
-        Cancelar
-      </a>
+      <!-- Costos -->
+      <h3 class="text-lg font-semibold sm:col-span-2 text-cyan-400">Costos</h3>
+      <label>Presupuesto:
+        <input [(ngModel)]="ordenSeleccionada.costos.presupuesto" name="costosPresupuesto"
+               class="w-full bg-gray-800 text-white rounded-md p-2" />
+      </label>
+      <label>Costo final:
+        <input type="number" [(ngModel)]="ordenSeleccionada.costos.costoFinal" name="costosFinal"
+               class="w-full bg-gray-800 text-white rounded-md p-2" />
+      </label>
+      <label>Forma de pago:
+        <input [(ngModel)]="ordenSeleccionada.costos.formaPago" name="costosFormaPago"
+               class="w-full bg-gray-800 text-white rounded-md p-2" />
+      </label>
+      <label>Autorización:
+        <input type="checkbox" [(ngModel)]="ordenSeleccionada.costos.autorizacion" name="costosAutorizacion"
+               class="w-5 h-5" />
+      </label>
 
-      <button
-        type="button"
-        (click)="guardarCambios()"
-        class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-        aria-label="Guardar cambios"
-      >
-        Guardar
-      </button>
-    </div>
-  </form>
+      <!-- Seguimiento -->
+      <h3 class="text-lg font-semibold sm:col-span-2 text-cyan-400">Seguimiento</h3>
+      <label class="sm:col-span-2">Notas internas:
+        <textarea [(ngModel)]="ordenSeleccionada.seguimiento.notasInternas" name="seguimientoNotas"
+                  class="w-full bg-gray-800 text-white rounded-md p-2"></textarea>
+      </label>
+      <label class="sm:col-span-2">Historial:
+        <textarea [(ngModel)]="ordenSeleccionada.seguimiento.historial" name="seguimientoHistorial"
+                  class="w-full bg-gray-800 text-white rounded-md p-2"></textarea>
+      </label>
+
+      <!-- Botón guardar -->
+      <div class="sm:col-span-2 flex justify-end mt-4">
+        <button type="submit"
+                class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+          Guardar cambios
+        </button>
+      </div>
+    </form>
+  }
 </section>

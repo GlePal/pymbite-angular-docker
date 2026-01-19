@@ -1,0 +1,60 @@
+<div
+  class="fixed inset-0 bg-black/60 flex items-center justify-center z-50"
+  role="button"
+  tabindex="0"
+  (click)="cerrarModal()"
+  (keydown.enter)="cerrarModal()"
+  (keydown.space)="cerrarModal()"
+  aria-label="Cerrar modal"
+>
+  <div
+    class="bg-gray-900 text-white p-6 rounded-lg shadow-xl w-[95%] max-w-[720px] grid grid-cols-1 sm:grid-cols-2 gap-4"
+    (click)="$event.stopPropagation()"
+  >
+    <h3 class="text-xl font-semibold sm:col-span-2">Detalle de la orden</h3>
+
+    <!-- Cliente -->
+    <p><strong>Cliente:</strong> {{ orden.cliente.nombre }}</p>
+    <p><strong>Teléfono:</strong> {{ orden.cliente.telefono }}</p>
+    <p><strong>Dirección:</strong> {{ orden.cliente.direccion }}</p>
+
+    <!-- Dispositivo -->
+    <p><strong>Tipo:</strong> {{ orden.dispositivo.tipo }}</p>
+    <p><strong>Marca:</strong> {{ orden.dispositivo.marca }}</p>
+    <p><strong>Modelo:</strong> {{ orden.dispositivo.modelo }}</p>
+    <p><strong>Accesorios:</strong> {{ orden.dispositivo.accesorios }}</p>
+    <p><strong>Condiciones:</strong> {{ orden.dispositivo.condiciones }}</p>
+    <p class="sm:col-span-2"><strong>Descripción:</strong> {{ orden.dispositivo.descripcionAdicional }}</p>
+
+    <!-- Información -->
+    <p><strong>Falla:</strong> {{ orden.informacion.falla }}</p>
+    <p><strong>Diagnóstico:</strong> {{ orden.informacion.diagnostico }}</p>
+    <p><strong>Estado:</strong> {{ orden.informacion.estado }}</p>
+    <p><strong>Prioridad:</strong> {{ orden.informacion.prioridad }}</p>
+    <p><strong>Ingreso:</strong> {{ orden.informacion.fechaIngreso }}</p>
+    <p><strong>Entrega:</strong> {{ orden.informacion.fechaEntrega }}</p>
+    <p><strong>Finalización:</strong> {{ orden.informacion.fechaFinalizacion || '—' }}</p>
+
+    <!-- Costos -->
+    <p><strong>Presupuesto:</strong> {{ orden.costos.presupuesto }}</p>
+    <p><strong>Costo:</strong> {{ orden.costos.costoFinal | currency:'USD' }}</p>
+    <p><strong>Forma de pago:</strong> {{ orden.costos.formaPago }}</p>
+    <p><strong>Autorización:</strong> {{ orden.costos.autorizacion ? 'Sí' : 'No' }}</p>
+
+    <!-- Seguimiento -->
+    <p class="sm:col-span-2"><strong>Notas internas:</strong> {{ orden.seguimiento.notasInternas }}</p>
+    <p class="sm:col-span-2"><strong>Historial:</strong> {{ orden.seguimiento.historial }}</p>
+
+    <!-- Footer modal -->
+    <div class="sm:col-span-2 mt-2 flex justify-end gap-3">
+      <button
+        type="button"
+        class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+        (click)="cerrarModal()"
+        aria-label="Cerrar"
+      >
+        Cerrar
+      </button>
+    </div>
+  </div>
+</div>

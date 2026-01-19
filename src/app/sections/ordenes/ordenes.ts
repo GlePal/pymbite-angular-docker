@@ -7,19 +7,20 @@ import { AnimateOnScrollDirective } from '../../directives/animate-on-scroll.dir
 
 // Importamos la interfaz y servicio
 import { Orden } from './models/orden.interface';
-import { OrdenesService } from './services/ordenes.service';
+import { OrdenesServiceMock } from './services/ordenes.service.mock'; // ✅ usar el mock
 
 @Component({
   selector: 'app-ordenes',
   standalone: true,
-  imports: [CommonModule, FormsModule, AnimateOnScrollDirective], // ✅ añadimos la directiva
+  imports: [CommonModule, FormsModule, AnimateOnScrollDirective],
   templateUrl: './ordenes.html',
   styleUrls: ['./ordenes.css'],
 })
 export class Ordenes {
-  private ordenesService = inject(OrdenesService);
+  private ordenesService = inject(OrdenesServiceMock);
 
   orden: Orden = {
+    id: Date.now().toString(), // ✅ id obligatorio
     cliente: { nombre: '', telefono: '', direccion: '' },
     dispositivo: {
       tipo: '', marca: '', modelo: '', accesorios: '',
@@ -37,12 +38,12 @@ export class Ordenes {
 
   guardarOrden(): void {
     this.ordenesService.createOrden(this.orden).subscribe({
-      next: (ordenGuardada) => {
+      next: (ordenGuardada: Orden) => {
         console.log('Orden guardada en API:', ordenGuardada);
         alert('Orden registrada correctamente');
         this.resetForm();
       },
-      error: (err) => {
+      error: (err: unknown) => {
         console.error('Error al guardar la orden:', err);
         alert('Hubo un error al registrar la orden');
       },
@@ -51,6 +52,7 @@ export class Ordenes {
 
   resetForm(): void {
     this.orden = {
+      id: Date.now().toString(), // ✅ nuevo id cada vez
       cliente: { nombre: '', telefono: '', direccion: '' },
       dispositivo: {
         tipo: '', marca: '', modelo: '', accesorios: '',

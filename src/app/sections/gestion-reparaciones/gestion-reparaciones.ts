@@ -2,6 +2,7 @@ import { Component, HostListener, AfterViewInit, OnInit, inject } from '@angular
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { OrdenDetalleModal } from '../orden-detalle-modal/orden-detalle-modal'; 
 
 
 import { Orden } from '../ordenes/models/orden.interface';
@@ -10,7 +11,7 @@ import { OrdenesService } from '../ordenes/services/ordenes.service';
 @Component({
   selector: 'app-gestion-reparaciones',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule,  OrdenDetalleModal],
   templateUrl: './gestion-reparaciones.html',
   styleUrls: ['./gestion-reparaciones.css'],
 })

@@ -6,40 +6,65 @@ import { Orden } from '../models/orden.interface';
   providedIn: 'root'
 })
 export class OrdenesServiceMock {
-  getOrdenes(): Observable<Orden[]> {
-    const ordenesFicticias: Orden[] = [
-      {
-        cliente: { nombre: 'Juan Pérez', telefono: '0414-1234567', direccion: 'Av. Bolívar' },
-        dispositivo: {
-          tipo: 'Laptop', marca: 'Dell', modelo: 'Inspiron',
-          accesorios: 'Cargador', condiciones: 'Buen estado',
-          descripcionAdicional: 'Pantalla con rayas'
-        },
-        informacion: {
-          falla: 'No enciende', diagnostico: 'Fuente dañada',
-          estado: 'Recibido', prioridad: 'Alta',
-          fechaIngreso: '2026-01-02', fechaEntrega: '2026-01-05', fechaFinalizacion: ''
-        },
-        costos: { presupuesto: '50$', costoFinal: 60, formaPago: 'Dólares', autorizacion: true },
-        seguimiento: { notasInternas: 'Pendiente repuesto', historial: 'Creada el 02/01/2026' }
+  /** Órdenes ficticias con id único */
+  private ordenesFicticias: Orden[] = [
+    {
+      id: '1',
+      cliente: { nombre: 'Juan Pérez', telefono: '0414-1234567', direccion: 'Av. Bolívar' },
+      dispositivo: {
+        tipo: 'Laptop', marca: 'Dell', modelo: 'Inspiron',
+        accesorios: 'Cargador', condiciones: 'Buen estado',
+        descripcionAdicional: 'Pantalla con rayas'
       },
-      {
-        cliente: { nombre: 'María Gómez', telefono: '0412-7654321', direccion: 'Calle Sucre' },
-        dispositivo: {
-          tipo: 'Teléfono', marca: 'Samsung', modelo: 'Galaxy S21',
-          accesorios: 'Cable USB', condiciones: 'Rayado',
-          descripcionAdicional: 'Batería inflada'
-        },
-        informacion: {
-          falla: 'No carga', diagnostico: 'Puerto dañado',
-          estado: 'En proceso', prioridad: 'Media',
-          fechaIngreso: '2026-01-01', fechaEntrega: '2026-01-04', fechaFinalizacion: ''
-        },
-        costos: { presupuesto: '30$', costoFinal: 35, formaPago: 'Bolívares', autorizacion: false },
-        seguimiento: { notasInternas: 'Esperando aprobación', historial: 'Creada el 01/01/2026' }
-      }
-    ];
+      informacion: {
+        falla: 'No enciende', diagnostico: 'Fuente dañada',
+        estado: 'Recibido', prioridad: 'Alta',
+        fechaIngreso: '2026-01-02', fechaEntrega: '2026-01-05', fechaFinalizacion: ''
+      },
+      costos: { presupuesto: '50$', costoFinal: 60, formaPago: 'Dólares', autorizacion: true },
+      seguimiento: { notasInternas: 'Pendiente repuesto', historial: 'Creada el 02/01/2026' }
+    },
+    {
+      id: '2',
+      cliente: { nombre: 'María Gómez', telefono: '0412-7654321', direccion: 'Calle Sucre' },
+      dispositivo: {
+        tipo: 'Teléfono', marca: 'Samsung', modelo: 'Galaxy S21',
+        accesorios: 'Cable USB', condiciones: 'Rayado',
+        descripcionAdicional: 'Batería inflada'
+      },
+      informacion: {
+        falla: 'No carga', diagnostico: 'Puerto dañado',
+        estado: 'En proceso', prioridad: 'Media',
+        fechaIngreso: '2026-01-01', fechaEntrega: '2026-01-04', fechaFinalizacion: ''
+      },
+      costos: { presupuesto: '30$', costoFinal: 35, formaPago: 'Bolívares', autorizacion: false },
+      seguimiento: { notasInternas: 'Esperando aprobación', historial: 'Creada el 01/01/2026' }
+    }
+  ];
 
-    return of(ordenesFicticias);
+  /** Devuelve todas las órdenes ficticias */
+  getOrdenes(): Observable<Orden[]> {
+    return of(this.ordenesFicticias);
+  }
+
+  /** ✅ Obtener una orden por id */
+  getOrdenById(id: string): Observable<Orden | undefined> {
+    const orden = this.ordenesFicticias.find(o => o.id === id);
+    return of(orden);
+  }
+
+  /** ✅ Crear una nueva orden */
+  createOrden(payload: Orden): Observable<Orden> {
+    this.ordenesFicticias.push(payload);
+    return of(payload);
+  }
+
+  /** ✅ Actualizar una orden existente */
+  updateOrden(id: string, payload: Orden): Observable<Orden> {
+    const index = this.ordenesFicticias.findIndex(o => o.id === id);
+    if (index !== -1) {
+      this.ordenesFicticias[index] = payload;
+    }
+    return of(payload);
   }
 }

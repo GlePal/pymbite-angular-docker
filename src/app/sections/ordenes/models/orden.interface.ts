@@ -2,6 +2,8 @@ export type EstadoOrden = 'Recibido' | 'En proceso' | 'Finalizado';
 export type PrioridadOrden = 'Alta' | 'Media' | 'Baja';
 
 export interface Orden {
+  id: string;
+
   cliente: {
     nombre: string;
     telefono: string;
